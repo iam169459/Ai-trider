@@ -1,0 +1,52 @@
+# Docker setup for macOS (Apple Silicon) - dry-run only.
+#
+#   docker compose up -d
+#   docker compose logs -f
+#
+# The dashboard is published on 127.0.0.1 only - it is NOT reachable from
+# other machines in your network.
+
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    container_name: ai-trider-freqtrade
+    restart: unless-stopped
+
+    # Only the loopback interface is published.
+    ports:
+      - "127.0.0.1:8080:8080"
+
+    volumes:
+      # The whole project (config, user_data, scripts)
+      - "./:/user_data"
+      # Optional: persist the FreqUI build outside the container
+      - "freqtrade-ui:/home/user/.local/share/freqtrade"
+
+    # config/config.docker.json only differs in the database/log paths and
+    # the second --config wins over the first one.
+    command:
+      - "trade"
+      - "--config"
+      - "/user_data/config/config.json"
+      - "--config"
+      - "/user_data/config/config.docker.json"
+      - "--strategy"
+      - "ConservativeTrendStrategy"
+
+    environment:
+      TZ: "UTC"
+
+    # The bot must never be able to reach the internet through a proxy and
+    # must not have any extra capabilities.
+    security_opt:
+      - "no-new-privileges:true"
+
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://127.0.0.1:8080/api/v1/ping"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  freqtrade-ui:

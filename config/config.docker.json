@@ -1,0 +1,10 @@
+{
+    "$schema": "https://schema.freqtrade.io/schema.json",
+
+    "db_url": "sqlite:////user_data/tradesv3.dryrun.sqlite",
+    "logfile": "/user_data/logs/freqtrade.log",
+
+    "add_config_files": [
+        "secrets.json"
+    ]
+}

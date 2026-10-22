@@ -1,0 +1,38 @@
+# Secrets - never commit these
+config/secrets.json
+config/*.local.json
+*.sqlite
+*.sqlite-journal
+*.db
+
+# Freqtrade runtime data
+user_data/data/
+user_data/logs/
+user_data/backtest_results/
+user_data/hyperopt_results/
+user_data/plot/
+user_data/notebooks/
+user_data/freqaimodels/
+user_data/hyperopts/
+user_data/tradesv3*.sqlite
+user_data/*.sqlite
+
+# Local environment / editors
+.venv/
+venv/
+env/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.DS_Store
+
+# Local clone of the Freqtrade source (only used as a reference / editable
+# install in this sandbox - not needed on macOS, install Freqtrade separately)
+freqtrade-src/
+
+# VS Code
+.vscode/*.log
+
+# Ruff cache
+.ruff_cache/

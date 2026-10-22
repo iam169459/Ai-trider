@@ -1,0 +1,22 @@
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+extend-exclude = ["freqtrade-src", ".venv", "user_data/data", "user_data/logs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B", "C4", "SIM"]
+ignore = [
+    # Freqtrade strategies use class attributes for the configuration, which
+    # ruff flags as mutable class attributes (RUF012).
+    "RUF012",
+    # The strategies are loaded by file path, not as a package.
+    "E402",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"user_data/tests/*" = ["S101"]
+"scripts/*" = ["S603", "S607"]
+
+[tool.pytest.ini_options]
+testpaths = ["user_data/tests"]
+python_files = ["test_*.py"]

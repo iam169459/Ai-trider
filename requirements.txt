@@ -1,0 +1,25 @@
+# Runtime requirements for the conservative Binance Spot bot.
+#
+# Freqtrade itself is installed separately (see docs/SETUP.md):
+#   git clone https://github.com/freqtrade/freqtrade.git
+#   cd freqtrade && git checkout stable && bash setup.sh -i
+#
+# The pins below reflect the versions this project was developed and verified
+# against:
+#   * Freqtrade 2026.10-dev (the "develop" branch; the latest release on PyPI
+#     at the time of writing was 2026.9 - both work, the configuration fields
+#     used here exist in both).
+#   * Python 3.12
+#
+# NOTE: pandas 3.x changes the behaviour of the
+# ".loc[mask, [col, col]] = (1, "tag")" idiom - the strategy initialises the
+# signal columns explicitly to stay compatible.
+
+freqtrade>=2026.9
+ta-lib>=0.6.0
+pandas>=2.2
+numpy>=1.26
+ccxt>=4.4
+
+# Development / test helpers
+pytest>=8.0
